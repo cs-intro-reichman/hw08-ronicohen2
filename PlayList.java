@@ -86,9 +86,11 @@ class PlayList {
      *  If such a track is not found, returns -1. */
     public int indexOf(String title) 
     {
+        String normalizedTitle = title.toLowerCase(); 
         for (int i=0; i<size; i++)
         {
-            if (tracks[i].getTitle().equals(title))
+            String trackTitle = tracks[i].getTitle().toLowerCase();
+            if (trackTitle.equals(normalizedTitle))
             {
                 return i;
             }
@@ -108,9 +110,12 @@ class PlayList {
         {
             return false;
         }
-        for (int j = size; j > i; j--) 
+        if (i<size)
         {
-            tracks[j] = tracks[j - 1];
+            for (int j = size; j > i; j--) 
+            {
+                tracks[j] = tracks[j - 1];
+            }
         }
         tracks[i] = track;
         size++;
@@ -130,8 +135,11 @@ class PlayList {
         {
             tracks[i]=null;
             size--;
+            for (int j=size; j>i; j--)
+            {
+                tracks[j] = tracks[j - 1];
+            }
         }
-        //// replace this comment with your code
     }
 
     /** Removes the first track that has the given title from this list.
@@ -139,14 +147,18 @@ class PlayList {
      *  is negative or too big for this list, does nothing. */
     public void remove(String title) 
     {
-        for (int i = 0; i < tracks.length; i++)
+        int i = -1;
+        i = indexOf(title);
+        if (i > 0 || i < size)
         {
-            if (tracks[i].getTitle().equals(title))
+            tracks[i]=null;
+            size--;
+            for (int j=size; j>i; j--)
             {
-                tracks[i]=null;
-                size--;
+                tracks[j] = tracks[j - 1];
             }
         }
+        
     }
 
     /** Removes the first track from this list. If the list is empty, does nothing. */
@@ -156,6 +168,10 @@ class PlayList {
         {
             tracks[0]= null;
             size--;
+            for (int j=size; j>0; j--)
+            {
+                tracks[j] = tracks[j - 1];
+            }
         }
     }
     
@@ -222,10 +238,9 @@ class PlayList {
         //// replace this statement with your code
         for (int i = 0; i < size - 1; i++) 
         {
-            int minIndex = minIndex(i); // Find the index of the minimum duration track starting from index i
+            int minIndex = minIndex(i); 
             if (minIndex != -1 && minIndex != i) 
             {
-                // Swap tracks at indices i and minIndex
                 Track temp = tracks[i];
                 tracks[i] = tracks[minIndex];
                 tracks[minIndex] = temp;
