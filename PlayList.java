@@ -120,6 +120,7 @@ class PlayList {
         tracks[i] = track;
         size++;
         return true;
+        
     }
      
     /** Removes the track in the given index from this list.
@@ -228,10 +229,6 @@ class PlayList {
      *  If the list is empty, returns null. */
     public String titleOfShortestTrack() 
     {
-        if (tracks == null)
-        {
-            return -1;
-        }
         return tracks[minIndex(0)].getTitle();
     }
 
