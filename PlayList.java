@@ -228,6 +228,10 @@ class PlayList {
      *  If the list is empty, returns null. */
     public String titleOfShortestTrack() 
     {
+        if (tracks == null)
+        {
+            return -1;
+        }
         return tracks[minIndex(0)].getTitle();
     }
 
