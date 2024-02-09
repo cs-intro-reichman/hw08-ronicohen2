@@ -210,7 +210,7 @@ class PlayList {
         }
         int min = tracks[start].getDuration();
         int minindex = start;
-        for (int i = start; i < size; i++)
+        for (int i = (start+1) ; i < size; i++)
         {
             if (tracks[i] == null)
             {
