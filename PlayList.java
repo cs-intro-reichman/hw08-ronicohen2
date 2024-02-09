@@ -204,7 +204,7 @@ class PlayList {
      */
     private int minIndex(int start) 
     {
-        if (start < 0 || start >= size)
+        if (start < 0 || start >= size || tracks[start]== null)
         {
             return -1;
         }
@@ -223,7 +223,13 @@ class PlayList {
      *  If the list is empty, returns null. */
     public String titleOfShortestTrack() 
     {
-        return tracks[minIndex(0)].getTitle();
+        int minIndex = minIndex(0);
+        if (minIndex == -1 || tracks[minIndex] == null) 
+        {
+            return null; 
+        }
+        return tracks[minIndex].getTitle();
+        
     }
 
     /** Sorts this list by increasing duration order: Tracks with shorter
@@ -235,7 +241,7 @@ class PlayList {
         // Uses the selection sort algorithm,  
         // calling the minIndex method in each iteration.
         //// replace this statement with your code
-        for (int i = 0; i < size - 1; i++) 
+        for (int i = 0; i < (size - 1); i++) 
         {
             int minIndex = minIndex(i); 
             if (minIndex != -1 && minIndex != i) 
