@@ -204,7 +204,7 @@ class PlayList {
      */
     private int minIndex(int start) 
     {
-        if (start < 0 || start >= size || tracks[start]== null )
+        if (start < 0 || start >= size)
         {
             return -1;
         }
