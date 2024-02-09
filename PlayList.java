@@ -204,14 +204,14 @@ class PlayList {
      */
     private int minIndex(int start) 
     {
-        if (start < 0 || start > size )
+        if (start < 0 || start > size || tracks[start]== null )
         {
             return -1;
         }
         int minindex = start;
         for (int i = (start+1) ; i < size; i++)
         {
-            if ((this.getTrack(minindex)).getDuration() > this.getTrack(i).getDuration())
+            if (!(this.getTrack(minindex)).isShorterThan(this.getTrack(i)))
             {
                 minindex = i;
             }
