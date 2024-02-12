@@ -55,13 +55,12 @@ class PlayList {
     //// For an efficient implementation, use StringBuilder.
     public String toString() 
     {
-        StringBuilder sb = new StringBuilder();
+       String sb = "";
         for (int i = 0; i < size; i++) 
         {
-            sb.append(tracks[i].toString()); 
-            sb.append(System.lineSeparator()); 
+           sb += tracks[i].toString()+"\n";
         }
-        return sb.toString();
+        return sb;
     }
 
     /** Removes the last track from this list. If the list is empty, does nothing. */
@@ -97,8 +96,8 @@ class PlayList {
         {
             if (tracks[i] != null)
             {
-                String s = tracks[i].getTitle();
-                if (s.equals(title))
+                String sb = tracks[i].getTitle();
+                if (sb.equals(title))
                 {
                     return i;
                 }
@@ -137,18 +136,19 @@ class PlayList {
      *  does nothing and returns -1. */
     public void remove(int i) 
     {
-        if (size<= 0|| i<0 || i >size)
+        if ( i<0 || i >= tracks.length )
         {
-            //return -1;
+
         }
         else 
         {
-            tracks[i]=null;
-            size--;
-            for (int j=size; j>i; j--)
+            for (int j=i; j< size -1 ; j++)
             {
-                tracks[j] = tracks[j - 1];
+                tracks[j] = tracks[j + 1];
             }
+            tracks[size-1]=null;
+            size--;
+            
         }
     }
 
@@ -157,16 +157,10 @@ class PlayList {
      *  is negative or too big for this list, does nothing. */
     public void remove(String title) 
     {
-        int i = -1;
-        i = indexOf(title);
+        int i = indexOf(title);
         if (i > 0 || i < size)
         {
-            tracks[i]=null;
-            size--;
-            for (int j=size; j>i; j--)
-            {
-                tracks[j] = tracks[j - 1];
-            }
+            remove(i);
         }
         
     }
@@ -174,14 +168,22 @@ class PlayList {
     /** Removes the first track from this list. If the list is empty, does nothing. */
     public void removeFirst() 
     {
-        if (size != 0)
+        int index = -1;
+        int i = 0;
+        boolean notempty = false;
+        while ((i < size)&&(index == -1))
         {
-            tracks[0]= null;
-            size--;
-            for (int j=size; j>0; j--)
+            if (tracks[i] != null)
             {
-                tracks[j] = tracks[j - 1];
+                index = i;
+                notempty = true;
+
             }
+            i++;
+        }
+        if (notempty == true)
+        {
+            remove(index);
         }
     }
     
@@ -214,7 +216,7 @@ class PlayList {
      */
     private int minIndex(int start) 
     {
-        if (start < 0 || start >= size || tracks[start]== null)
+        if (start < 0 || start >= size)
         {
             return -1;
         }
