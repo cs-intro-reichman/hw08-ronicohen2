@@ -211,10 +211,12 @@ class PlayList {
         int minindex = start;
         for (int i = (start+1) ; i < size; i++)
         {
-            if (!(this.getTrack(minindex)).isShorterThan(this.getTrack(i)))
-            {
+            if (this.getTrack(i)!=null){
+                if (!(this.getTrack(minindex)).isShorterThan(this.getTrack(i))){
                 minindex = i;
             }
+            }
+            
         }
         return minindex;
     }
