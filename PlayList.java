@@ -40,7 +40,7 @@ class PlayList {
     public boolean add(Track track) 
     {
         //// replace the following statement with your code
-        if (size<tracks.length)
+        if (size<maxSize)
         {
             tracks[size++] = track;
             return true;
@@ -106,7 +106,7 @@ class PlayList {
      *  returns true. */
     public boolean add(int i, Track track) 
     {
-        if (i < 0 || i > size || size == tracks.length) 
+        if (i < 0 || i > size || size == maxSize) 
         {
             return false;
         }
@@ -182,7 +182,7 @@ class PlayList {
      public void add(PlayList other) 
      {
         int combinedSize = size + other.getSize();
-        if (combinedSize <= tracks.length) 
+        if (combinedSize <= maxSize) 
         {
             for (int i = size; i<other.getSize(); i++)
             {
