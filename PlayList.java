@@ -39,13 +39,16 @@ class PlayList {
      *  Otherwise, appends the track and returns true. */
     public boolean add(Track track) 
     {
-        //// replace the following statement with your code
-        if (size<maxSize)
+        for (int i=0; i< tracks.length; i++)
         {
-            tracks[size++] = track;
-            return true;
+            if (tracks[i]== null)
+            {
+                tracks[i] = track;
+                size++;
+                return true;
+            }
         }
-        else return false;
+        return false;
     }
 
     /** Returns the data of this list, as a string. Each track appears in a separate line. */
@@ -93,11 +96,15 @@ class PlayList {
         String normalizedTitle = title.toLowerCase(); 
         for (int i=0; i<size; i++)
         {
-            String trackTitle = tracks[i].getTitle().toLowerCase();
-            if (trackTitle.equals(normalizedTitle))
+            if (tracks[i] != null)
             {
-                return i;
+                String trackTitle = tracks[i].getTitle().toLowerCase();
+                if (trackTitle.equals(normalizedTitle))
+                {
+                    return i;
+                }
             }
+            
         }
         return -1;
     }
@@ -110,15 +117,15 @@ class PlayList {
      *  returns true. */
     public boolean add(int i, Track track) 
     {
-        if (i < 0 || i > size || size == maxSize) 
+        if (i < 0 || i >= tracks.length || size == maxSize) 
         {
             return false;
         }
-        if (i<size)
+        else
         {
-            for (int j = size; j > i; j--) 
+            for (int j = size-1 ; j >= i; j--) 
             {
-                tracks[j] = tracks[j - 1];
+                tracks[j+1] = tracks[j];
             }
         }
         tracks[i] = track;
@@ -229,12 +236,8 @@ class PlayList {
      *  If the list is empty, returns null. */
     public String titleOfShortestTrack() 
     {
-        int minIndex = minIndex(0);
-        if (minIndex == -1 || tracks[minIndex] == null) 
-        {
-            return null; 
-        }
-        return tracks[minIndex].getTitle();
+        if (tracks[0] == null) return null;
+        else return tracks[minIndex(0)].getTitle();
         
     }
 
