@@ -220,14 +220,15 @@ class PlayList {
             return -1;
         }
         int minindex = start;
-        for (int i = (start+1) ; i < size; i++)
+        int min = tracks[start].getDuration();
+        for ( int i = start + 1; i < size ; i++)
         {
-            if (this.getTrack(i)!=null){
-                if (!(this.getTrack(minindex)).isShorterThan(this.getTrack(i))){
+            if (tracks[i].getDuration() < min)
+            {
                 minindex = i;
+                min = tracks[i].getDuration();
             }
-            }
-            
+
         }
         return minindex;
     }
@@ -250,15 +251,13 @@ class PlayList {
         // Uses the selection sort algorithm,  
         // calling the minIndex method in each iteration.
         //// replace this statement with your code
-        for (int i = 0; i < (size - 1); i++) 
+        int index = 0;
+        for (int i = 0; i < size; i++)
         {
-            int minIndex = minIndex(i); 
-            if (minIndex != -1 && minIndex != i) 
-            {
-                Track temp = tracks[i];
-                tracks[i] = tracks[minIndex];
-                tracks[minIndex] = temp;
-            }
+            index = minIndex(i);
+            Track temp = tracks[i];
+            tracks[i] = tracks[index];
+            tracks[index] = temp;
         }
     }
 }
