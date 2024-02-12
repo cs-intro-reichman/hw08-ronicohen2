@@ -192,18 +192,19 @@ class PlayList {
     //// An elegant and terribly inefficient implementation.
      public void add(PlayList other) 
      {
-        int combinedSize = size + other.getSize();
-        if (combinedSize <= maxSize) 
+        int j = 0;
+        if ((maxSize-size) + other.getSize() <= maxSize) 
         {
-            for (int i = size; i<other.getSize(); i++)
+            for (int i = size; i < maxSize; i++)
             {
-                Track trackToAdd = other.getTrack(i);
+                Track trackToAdd = other.getTrack(j);
                 if (trackToAdd != null) 
                 {
-                    tracks[size + i] = trackToAdd;
+                    tracks[i] = trackToAdd;
                 }
+                j++;
             }
-            size = combinedSize;
+           
         }
     }
 
