@@ -77,7 +77,11 @@ class PlayList {
         int totaldu = 0;
         for (int i=0; i<size; i++)
         {
-            totaldu += tracks[i].getDuration();;
+            if (tracks[i]!=null)
+            {
+                totaldu += tracks[i].getDuration();
+            }
+            
         }
         return totaldu;
     }
